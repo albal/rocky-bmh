@@ -30,8 +30,8 @@ jobs:
 
       - name: Fetch SSH Keys
         run: |
-          wegt https://github.com/maneshmistry8.keys
-          wegt https://github.com/albal.keys
+          wget https://github.com/maneshmistry8.keys
+          wget https://github.com/albal.keys
           cat maneshmistry8.keys albal.keys > ssh.keys
 
       - name: Run Guestfish
