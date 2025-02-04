@@ -23,15 +23,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Install Guest FS Tools
-        run: apt install -y guestfs-tools wget
+        run: sudo apt install -y guestfs-tools wget
 
       - name: Fetch Rocky Linux
         run: wget https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 
       - name: Fetch SSH Keys
         run: |
-          curl -L https://github.com/maneshmistry8.keys -o maneshmistry8.keys
-          curl -L https://github.com/albal.keys -o albal.keys
+          wegt https://github.com/maneshmistry8.keys
+          wegt https://github.com/albal.keys
           cat maneshmistry8.keys albal.keys > ssh.keys
 
       - name: Run Guestfish
@@ -40,8 +40,12 @@ jobs:
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
 
+      - name: Create SHA256SUM
+        run: sha256sum *.qcow2 > SHA256SUM
       - name: Store image
         uses: actions/upload-artifact@v4
         with:
           name: Rocky Linux 9.5 Custom Cloud Image
-          path: Rocky-9.5-Custom.x86_64.qcow2
+          path: |
+            SHA256SUM
+            Rocky-9.5-Custom.x86_64.qcow2
