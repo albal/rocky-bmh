@@ -1,0 +1,12 @@
+add Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
+run
+# Mount the appropriate partition (adjust /dev/sda1 and mount point as needed)
+mount /dev/sda1 /
+
+# Copy in the SSH keys file (from the host /tmp directory to the guest)
+copy-in ssh.keys /root/.ssh/authorized_keys
+
+# Set permissions as needed (note: guestfish cannot change permissions in all cases)
+# For more advanced permission changes, you might need to use guestfish's "chmod" command
+chmod 600 /root/.ssh/authorized_keys
+exit
