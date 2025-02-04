@@ -32,6 +32,7 @@ jobs:
         run: |
           curl -L https://github.com/maneshmistry8.keys -o maneshmistry8.keys
           curl -L https://github.com/albal.keys -o albal.keys
+          cat maneshmistry8.keys albal.keys > ssh.keys
 
       - name: Run Guestfish
         run: guestfish --file mycommands.txt
