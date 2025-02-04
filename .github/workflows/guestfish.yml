@@ -27,7 +27,11 @@ jobs:
 
       - name: Fetch Rocky Linux
         run: wget https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
-      # Runs a set of commands using the runners shell
+
+      - name: Fetch SSH Keys
+        run: |
+          curl -L https://github.com/maneshmistry8.keys -o maneshmistry8.keys
+          curl -L https://github.com/albal.keys -o albal.keys
 
       - name: Run Guestfish
         run: guestfish --file mycommands.txt
