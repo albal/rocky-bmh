@@ -30,16 +30,16 @@ jobs:
         run: sudo apt install -y guestfs-tools wget
 
       - name: Fetch Rocky Linux
-        run: wget https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
+        run: wget -nv https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 
       - name: Fetch SSH Keys
         run: |
-          wget https://github.com/maneshmistry8.keys
-          wget https://github.com/albal.keys
+          wget -nv https://github.com/maneshmistry8.keys
+          wget -nv https://github.com/albal.keys
           cat maneshmistry8.keys albal.keys > ssh.keys
 
       - name: Run Guestfish
-        run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 guestfish --file mycommands.txt
+        run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 sudo guestfish --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
