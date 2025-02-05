@@ -27,8 +27,7 @@ jobs:
         uses: actions/checkout@v4
     
       - name: Install Guest FS Tools
-        run: sudo apt install -y guestfs-tools wget xfsprogs
-
+        run: sudo apt install -y -qq guestfs-tools wget xfsprogs e2fsprogs
 
       - name: Fetch Rocky Linux
         run: wget -nv https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
