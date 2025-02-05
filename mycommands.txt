@@ -9,5 +9,6 @@ copy-in authorized_keys /root/.ssh
 
 # Set permissions as needed (note: guestfish cannot change permissions in all cases)
 # For more advanced permission changes, you might need to use guestfish's "chmod" command
+chmod 700 /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
 exit
