@@ -62,3 +62,35 @@ jobs:
           path: |
             SHA256SUM
             Rocky-9.5-Custom.x86_64.qcow2
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v9.5-custom
+          release_name: "Rocky Linux 9.5 Custom Cloud Image"
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset: QCOW2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Rocky-9.5-Custom.x86_64.qcow2
+          asset_name: Rocky-9.5-Custom.x86_64.qcow2
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset: SHA256SUM
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./SHA256SUM
+          asset_name: SHA256SUM
+          asset_content_type: text/plain
+          
