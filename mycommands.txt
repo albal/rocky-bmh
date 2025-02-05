@@ -1,7 +1,7 @@
 add Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 run
 # Mount the appropriate partition (adjust /dev/sda1 and mount point as needed)
-mount /dev/sda1 /
+mount /dev/sda4 /
 
 # Copy in the SSH keys file (from the host /tmp directory to the guest)
 copy-in ssh.keys /root/.ssh/authorized_keys
