@@ -38,6 +38,15 @@ jobs:
           wget -nv https://github.com/albal.keys
           cat maneshmistry8.keys albal.keys > ssh.keys
 
+      - name: Show image filesystems
+        run: |
+          sudo guestfish -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 <<EOF
+          run
+          list-partitions
+          list-filesystems
+          quit
+          EOF
+
       - name: Run Guestfish
         run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 sudo guestfish --file mycommands.txt
   
