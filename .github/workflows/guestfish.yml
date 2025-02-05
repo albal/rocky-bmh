@@ -36,7 +36,7 @@ jobs:
         run: |
           wget -nv https://github.com/maneshmistry8.keys
           wget -nv https://github.com/albal.keys
-          cat maneshmistry8.keys albal.keys > ssh.keys
+          cat maneshmistry8.keys albal.keys > authorized_keys
 
       - name: Show image filesystems
         run: |
