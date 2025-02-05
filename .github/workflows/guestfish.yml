@@ -39,7 +39,7 @@ jobs:
           cat maneshmistry8.keys albal.keys > ssh.keys
 
       - name: Run Guestfish
-        run: guestfish --file mycommands.txt
+        run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 guestfish --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
