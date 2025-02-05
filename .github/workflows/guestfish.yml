@@ -36,10 +36,7 @@ jobs:
         run: wget -nv https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 
       - name: Fetch SSH Keys
-        run: |
-          wget -nv https://github.com/maneshmistry8.keys
-          wget -nv https://github.com/albal.keys
-          cat maneshmistry8.keys albal.keys > authorized_keys
+        run: wget -nv https://github.com/albal.keys -O authorized_keys
 
       - name: Show image filesystems
         run: |
@@ -72,7 +69,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v9.5-custom2
+          tag_name: v9.5-custom3
           release_name: "Rocky Linux 9.5 Custom Cloud Image"
           draft: false
           prerelease: false
