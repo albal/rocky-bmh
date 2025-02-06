@@ -42,7 +42,7 @@ jobs:
           cat albal.keys maneshmistry8.keys > authorized_keys
 
       - name: Run Guestfish
-        run: guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 -i --file mycommands.txt
+        run: sudo guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 -i --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
