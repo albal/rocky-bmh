@@ -1,14 +1,4 @@
-add Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
-run
-# Mount the appropriate partition
-mount /dev/sda4 /
-
-# Copy in the SSH keys file
-mkdir-p /root/.ssh
 copy-in authorized_keys /root/.ssh
+chmod 0600 /root/.ssh/authorized_keys
 touch /.autorelabel
-
-# Set permissions as needed
-chmod 700 /root/.ssh
-chmod 600 /root/.ssh/authorized_keys
-exit
+quit
