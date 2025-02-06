@@ -41,23 +41,15 @@ jobs:
           wget -nv https://github.com/maneshmistry8.keys
           cat albal.keys maneshmistry8.keys > authorized_keys
 
-      - name: Show image filesystems
-        run: |
-          sudo guestfish -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 <<EOF
-          run
-          list-partitions
-          list-filesystems
-          quit
-          EOF
-
       - name: Run Guestfish
-        run: sudo guestfish -v --file mycommands.txt
+        run: guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 -i --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
 
       - name: Create SHA256SUM
         run: sha256sum *.qcow2 > SHA256SUM
+
       - name: Store image
         uses: actions/upload-artifact@v4
         with:
@@ -72,7 +64,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v9.5-custom6
+          tag_name: v9.5-custom9
           release_name: "Rocky Linux 9.5 Custom Cloud Image"
           draft: false
           prerelease: false
