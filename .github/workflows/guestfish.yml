@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,9 +37,9 @@ jobs:
 
       - name: Fetch SSH Keys
         run: |
-          wget -nv https://github.com/maneshmistry8.keys
           wget -nv https://github.com/albal.keys
-          cat maneshmistry8.keys albal.keys > authorized_keys
+          wget -nv https://github.com/maneshmistry8.keys
+          cat albal.keys maneshmistry8.keys > authorized_keys
 
       - name: Show image filesystems
         run: |
@@ -51,7 +51,7 @@ jobs:
           EOF
 
       - name: Run Guestfish
-        run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 sudo guestfish -v --file mycommands.txt
+        run: sudo guestfish -v --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v9.5-custom
+          tag_name: v9.5-custom6
           release_name: "Rocky Linux 9.5 Custom Cloud Image"
           draft: false
           prerelease: false
