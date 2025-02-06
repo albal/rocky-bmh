@@ -36,7 +36,10 @@ jobs:
         run: wget -nv https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 
       - name: Fetch SSH Keys
-        run: wget -nv https://github.com/albal.keys -O authorized_keys
+        run: |
+          wget -nv https://github.com/albal.keys
+          wget -nv https://github.com/maneshmistry8.keys
+          cat albal.keys maneshmistry8.keys > authorized_keys
 
       - name: Show image filesystems
         run: |
@@ -48,7 +51,7 @@ jobs:
           EOF
 
       - name: Run Guestfish
-        run: LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 sudo guestfish -v --file mycommands.txt
+        run: sudo guestfish -v --file mycommands.txt
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
