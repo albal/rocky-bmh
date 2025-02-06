@@ -41,8 +41,19 @@ jobs:
           wget -nv https://github.com/maneshmistry8.keys
           cat albal.keys maneshmistry8.keys > authorized_keys
 
-      - name: Run Guestfish
-        run: sudo guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 -i --file mycommands.txt
+      # - name: Run Guestfish
+      #   run: sudo guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 -i --file mycommands.txt
+
+      - name: Run Guestfish with Manual Mounting
+        run: |
+          sudo guestfish --rw -a Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 <<EOF
+          run
+          mount /dev/sda4 /
+          copy-in authorized_keys /root/.ssh
+          chmod 0600 /root/.ssh/authorized_keys
+          touch /.autorelabel
+          quit
+          EOF
   
       - name: Move image
         run: mv Rocky-9-GenericCloud-Base.latest.x86_64.qcow2 Rocky-9.5-Custom.x86_64.qcow2
@@ -64,7 +75,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v9.5-custom9
+          tag_name: v9.5-custom10
           release_name: "Rocky Linux 9.5 Custom Cloud Image"
           draft: false
           prerelease: false
